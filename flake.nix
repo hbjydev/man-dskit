@@ -17,6 +17,13 @@
         version = "0.1.0";
         nodejs = pkgs.nodejs_21;
       in {
+        apps = {
+          default = {
+            type = "app";
+            program = "${pkgs.httplz}/bin/httplz ${config.packages.default}";
+          };
+        };
+
         devShells = {
           default = pkgs.mkShell {
             buildInputs = [pkgs.prefetch-npm-deps];
