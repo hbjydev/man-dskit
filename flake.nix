@@ -20,7 +20,7 @@
         apps = {
           default = {
             type = "app";
-            program = "${pkgs.httplz}/bin/httplz ${config.packages.default}";
+            program = "${config.packages.serveStatic}/bin/${name}-server";
           };
         };
 
@@ -39,6 +39,13 @@
             npmDepsHash = "sha256-OK0AEVUn58LUygS2tqROBGdaW4gIRBiAA/ev+0PiLbg=";
             installPhase = ''
               cp --no-preserve=mode -r build $out
+            '';
+          };
+
+          serveStatic = pkgs.writeShellApplication {
+            name = "${name}-server";
+            text = ''
+              ${pkgs.httplz}/bin/httplz ${config.packages.default}
             '';
           };
         };
